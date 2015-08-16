@@ -30,7 +30,8 @@ int main( int argc, char* argv[] )
     else
     {
         twitterObj.getLastCurlError( replyMsg );
-        printf( "\nerror:\n%s\n", replyMsg.c_str() );
+        fprintf( stderr, "\nerror:\n%s\n", replyMsg.c_str() );
+        exit(0);
     }
 #endif
 
@@ -49,10 +50,9 @@ int main( int argc, char* argv[] )
     if( twitterObj.search( tmpStr, "" ) )
     {
         twitterObj.getLastWebResponse( replyMsg );
-        //printf( "\nresponse:\n%s\n", replyMsg.c_str() );
 
-        std::ofstream replyMsgOut;
         tmpStr += std::string(".json");
+        std::ofstream replyMsgOut;
 
         replyMsgOut.open( tmpStr.c_str(), std::ofstream::out );
         replyMsgOut.clear();
@@ -63,7 +63,7 @@ int main( int argc, char* argv[] )
     else
     {
         twitterObj.getLastCurlError( replyMsg );
-        printf( "\ntwitterClient:: twitCurl::search error:\n%s\n", replyMsg.c_str() );
+        fprintf( stderr, "\nerror:\n%s\n", replyMsg.c_str() );
     }
 
     return 0;
