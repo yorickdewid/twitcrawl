@@ -70,7 +70,8 @@ int main( int argc, char* argv[] )
     time_t now = time( 0 );
     std::stringstream ss;
     ss << now;
-    mkdir( ss.str().c_str(), 0777 );
+    std::string dirStr = ss.str();
+    mkdir( dirStr.c_str(), 0777 );
 
     /* Loop over keyword file */
     std::ifstream keywordListIn( keywordList.c_str() );
@@ -91,7 +92,7 @@ int main( int argc, char* argv[] )
         {
             twitterObj.getLastWebResponse( replyMsg );
 
-            tmpStr += std::string(".json");
+            tmpStr = dirStr + "/" + tmpStr + std::string(".json");
             std::ofstream replyMsgOut;
 
             replyMsgOut.open( tmpStr.c_str(), std::ofstream::out );
