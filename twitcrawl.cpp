@@ -66,13 +66,19 @@ int main( int argc, char* argv[] )
     }
 #endif
 
+    /* Prepare this session */
+    time_t now = time( 0 );
+    std::stringstream ss;
+    ss << now;
+    mkdir( ss.str().c_str(), 0777 );
+
     /* Loop over keyword file */
     std::ifstream keywordListIn( keywordList.c_str() );
     std::string lineStr;
     int n = 0;
-    while (std::getline(keywordListIn, lineStr))
+    while ( std::getline( keywordListIn, lineStr ) )
     {
-        if (n >= MAX_CONN)
+        if ( n >= MAX_CONN )
         {
             std::cerr << "Max keywords per session" << std::endl;
             break;
