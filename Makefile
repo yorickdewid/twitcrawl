@@ -12,4 +12,5 @@ target:
 clean:
 	$(REMOVE) $(NAME)
 	$(REMOVE) *.o
+	$(REMOVE) *.json
 
