@@ -1,8 +1,38 @@
 #include "twitcrawl.h"
 #include "api.h"
 
+/* Show the monkey how */
+void usage(std::string nameStr)
+{
+    std::cout << nameStr << ": -f [FILE]" << std::endl;
+}
+
 int main( int argc, char* argv[] )
 {
+    std::string keywordList;
+    if (argc < 2)
+    {
+        usage(argv[0]);
+        return 1;
+    }
+    for( int i = 1; i < argc; i += 2 )
+    {
+        if( !strncmp( argv[i], "-f", strlen("-f") ) )
+        {
+            keywordList = argv[i+1];
+        }
+        else
+        {
+            usage(argv[0]);
+            return 1;
+        }
+    }
+    if( !keywordList.length() )
+    {
+        usage(argv[0]);
+        return 1;
+    }
+
     twitCurl twitterObj;
     std::string tmpStr, tmpStr2;
     std::string replyMsg;
@@ -35,7 +65,7 @@ int main( int argc, char* argv[] )
 #endif
 
     /* Loop over keyword file */
-    std::ifstream keywordListIn("keyword.txt");
+    std::ifstream keywordListIn( keywordList.c_str() );
     std::string lineStr;
     while (std::getline(keywordListIn, lineStr))
     {
