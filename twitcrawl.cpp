@@ -40,12 +40,6 @@ int main( int argc, char* argv[] )
     memset( tmpBuf, 0, 1024 );
     gets( tmpBuf );
     tmpStr = tmpBuf;
-#ifdef LIMIT_SEARCH
-    printf( "\nLimit search results to: " );
-    memset( tmpBuf, 0, 1024 );
-    gets( tmpBuf );
-    tmpStr2 = tmpBuf;
-#endif
     replyMsg = "";
     if( twitterObj.search( tmpStr, "" ) )
     {
