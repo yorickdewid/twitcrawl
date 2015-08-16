@@ -1,6 +1,8 @@
 #include "twitcrawl.h"
 #include "api.h"
 
+#define MAX_CONN    30 // Max connections per session
+
 /* Show the monkey how */
 void usage(std::string nameStr)
 {
@@ -67,8 +69,15 @@ int main( int argc, char* argv[] )
     /* Loop over keyword file */
     std::ifstream keywordListIn( keywordList.c_str() );
     std::string lineStr;
+    int n = 0;
     while (std::getline(keywordListIn, lineStr))
     {
+        if (n >= MAX_CONN)
+        {
+            std::cerr << "Max keywords per session" << std::endl;
+            break;
+        }
+
         tmpStr = lineStr;
         replyMsg = "";
 	std::cout << "Request " + lineStr << std::endl;
@@ -90,6 +99,8 @@ int main( int argc, char* argv[] )
             twitterObj.getLastCurlError( replyMsg );
             fprintf( stderr, "\nerror:\n%s\n", replyMsg.c_str() );
         }
+
+        n++;
     }
 
     return 0;
