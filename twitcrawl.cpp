@@ -6,7 +6,6 @@ int main( int argc, char* argv[] )
     twitCurl twitterObj;
     std::string tmpStr, tmpStr2;
     std::string replyMsg;
-    char tmpBuf[1024];
 
     /* Lets get authenticated */
     twitterObj.getOAuth().setConsumerKey( std::string( CONSUMER_KEY ) );
@@ -35,29 +34,32 @@ int main( int argc, char* argv[] )
     }
 #endif
 
-    /* Search with keyword */
-    printf( "\nEnter string to search: " );
-    memset( tmpBuf, 0, 1024 );
-    gets( tmpBuf );
-    tmpStr = tmpBuf;
-    replyMsg = "";
-    if( twitterObj.search( tmpStr, "" ) )
+    /* Loop over keyword file */
+    std::ifstream keywordListIn("keyword.txt");
+    std::string lineStr;
+    while (std::getline(keywordListIn, lineStr))
     {
-        twitterObj.getLastWebResponse( replyMsg );
+        tmpStr = lineStr;
+        replyMsg = "";
+	std::cout << "Request " + lineStr << std::endl;
+        if( twitterObj.search( tmpStr, "" ) )
+        {
+            twitterObj.getLastWebResponse( replyMsg );
 
-        tmpStr += std::string(".json");
-        std::ofstream replyMsgOut;
+            tmpStr += std::string(".json");
+            std::ofstream replyMsgOut;
 
-        replyMsgOut.open( tmpStr.c_str(), std::ofstream::out );
-        replyMsgOut.clear();
+            replyMsgOut.open( tmpStr.c_str(), std::ofstream::out );
+            replyMsgOut.clear();
 
-        replyMsgOut << replyMsg.c_str();
-        replyMsgOut.close();
-    }
-    else
-    {
-        twitterObj.getLastCurlError( replyMsg );
-        fprintf( stderr, "\nerror:\n%s\n", replyMsg.c_str() );
+            replyMsgOut << replyMsg.c_str();
+            replyMsgOut.close();
+        }
+        else
+        {
+            twitterObj.getLastCurlError( replyMsg );
+            fprintf( stderr, "\nerror:\n%s\n", replyMsg.c_str() );
+        }
     }
 
     return 0;
