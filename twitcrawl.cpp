@@ -5,7 +5,7 @@
 #define VERSION     "1.1"
 
 /* Show the monkey how */
-void usage(std::string nameStr)
+void usage(const std::string &nameStr)
 {
     std::cout << "Version: " << VERSION << std::endl;
     std::cout << nameStr << ": -f [FILE]" << std::endl;
@@ -98,7 +98,7 @@ int main( int argc, char* argv[] )
         tmpStr = lineStr;
         replyMsg = "";
 	std::cout << "Request " + lineStr << std::endl;
-        if( twitterObj.search( tmpStr, "" ) )
+        if( twitterObj.search( tmpStr ) )
         {
             twitterObj.getLastWebResponse( replyMsg );
 
