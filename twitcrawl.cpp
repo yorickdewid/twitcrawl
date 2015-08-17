@@ -46,8 +46,15 @@ int main( int argc, char* argv[] )
     twitterObj.getOAuth().setOAuthTokenKey( ACCESS_TOKEN );
     twitterObj.getOAuth().setOAuthTokenSecret( ACCESS_TOKEN_SECRET );
 
+    /*twitterObj.accountVerifyCredGet();
+    {
+        twitterObj.getLastWebResponse( replyMsg );
+        std::cerr << "error" << replyMsg << std::endl;
+    }*/
+
 #if 0
     /* Post a new status message */
+    char tmpBuf[1024];
     memset( tmpBuf, 0, 1024 );
     printf( "\nEnter a new status message: " );
     gets( tmpBuf );
