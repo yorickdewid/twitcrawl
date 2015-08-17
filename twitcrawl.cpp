@@ -1,11 +1,13 @@
 #include "twitcrawl.h"
 #include "api.h"
 
-#define MAX_CONN    30 // Max connections per session
+#define MAX_CONN    30 /* Max connections per session */
+#define VERSION     "1.1"
 
 /* Show the monkey how */
 void usage(std::string nameStr)
 {
+    std::cout << "Version: " << VERSION << std::endl;
     std::cout << nameStr << ": -f [FILE]" << std::endl;
 }
 
@@ -71,6 +73,7 @@ int main( int argc, char* argv[] )
         fprintf( stderr, "\nerror:\n%s\n", replyMsg.c_str() );
         exit(0);
     }
+    return 1;
 #endif
 
     /* Prepare this session */
