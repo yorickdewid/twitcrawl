@@ -2,7 +2,7 @@
 #include "api.h"
 
 #define MAX_CONN    30 /* Max connections per session */
-#define VERSION     "1.1"
+#define VERSION     "1.3"
 
 /* Show the monkey how */
 void usage(const std::string &nameStr)
@@ -24,6 +24,15 @@ int main( int argc, char* argv[] )
         if( !strncmp( argv[i], "-f", strlen("-f") ) )
         {
             keywordList = argv[i+1];
+        }
+        else if( !strncmp( argv[i], "-v", strlen("-v") ) )
+        {
+            std::cout << "Consumer key:\t\t" << CONSUMER_KEY << std::endl;
+            std::cout << "Consumer secret:\t" << CONSUMER_SECRET << std::endl;
+
+            std::cout << "Token:\t\t\t" << ACCESS_TOKEN << std::endl;
+            std::cout << "Token secret:\t\t" << ACCESS_TOKEN_SECRET << std::endl;
+            return 1;
         }
         else
         {
