@@ -1,8 +1,8 @@
 #include "twitcrawl.h"
 #include "api.h"
 
-#define MAX_CONN    30 /* Max connections per session */
-#define VERSION     "1.3"
+#define MAX_CONN    450 /* Max connections per session */
+#define VERSION     "1.4"
 
 /* Show the monkey how */
 void usage(const std::string &nameStr)
