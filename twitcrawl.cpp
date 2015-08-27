@@ -2,7 +2,7 @@
 #include "api.h"
 
 #define MAX_CONN    450 /* Max connections per session */
-#define VERSION     "1.4"
+#define VERSION     "1.5"
 
 /* Show the monkey how */
 void usage(const std::string &nameStr)
@@ -102,6 +102,11 @@ int main( int argc, char* argv[] )
         {
             std::cerr << "Max keywords per session" << std::endl;
             break;
+        }
+
+        if ( lineStr.empty() || lineStr.at(0) == '#' )
+        {
+            continue;
         }
 
         tmpStr = lineStr;
